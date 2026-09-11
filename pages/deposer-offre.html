@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/deposer-offre.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">StagesAlternances</div>
+        <nav>
+            <a href="../index.html" class="active">Offres</a>
+            <a href="../pages/offres-suivies.html">Suivies </a>
+            <a href="./admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Lien de retour -->
+        <a href="../index.html" class="back-link">&larr; Retour</a>
+
+        <!-- Titre -->
+        <h1 class="page-title">Nouvelle offre</h1>
+
+        <!-- Formulaire -->
+        <main class="form-card">
+            <form action="#" method="POST">
+                
+                <!-- Titre du poste -->
+                <div class="form-group">
+                    <label for="title">Titre du poste *</label>
+                    <input type="text" id="title" required>
+                </div>
+
+                <!-- Entreprise -->
+                <div class="form-group">
+                    <label for="company">Entreprise *</label>
+                    <input type="text" id="company" required>
+                </div>
+
+                <!-- Ville -->
+                <div class="form-group">
+                    <label for="city">Ville *</label>
+                    <input type="text" id="city" required>
+                </div>
+
+                <!-- Type de contrat -->
+                <div class="form-group">
+                    <label for="contract">Type de contrat</label>
+                    <select id="contract">
+                        <option value="stage">Stage</option>
+                        <option value="alternance">Alternance</option>
+                    </select>
+                </div>
+
+                <!-- Technologies -->
+                <div class="form-group">
+                    <label for="technologies">Technologies (séparées par des virgules)</label>
+                    <input type="text" id="technologies" placeholder="Ex: React, Node.js, Tailwind">
+                </div>
+
+                <!-- Description courte -->
+                <div class="form-group">
+                    <label for="short-desc">Description courte</label>
+                    <textarea id="short-desc"></textarea>
+                </div>
+
+                <!-- Description complète de la mission -->
+                <div class="form-group">
+                    <label for="full-desc">Description complète de la mission</label>
+                    <textarea id="full-desc"></textarea>
+                </div>
+
+                <!-- Profil recherché -->
+                <div class="form-group">
+                    <label for="profile">Profil recherché</label>
+                    <textarea id="profile"></textarea>
+                    
+                </div>
+
+                <button class="btn-voir">Publier l'offre</button>
+                <button class="btn">Annuler</button>
+                    
+</body>
+</html>
