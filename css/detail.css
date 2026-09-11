@@ -1,0 +1,132 @@
+/* Lien Retour */
+.back-link {
+    display: inline-block;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Carte Détail */
+.detail-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Entete de l'offre */
+.offer-header-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.badge-stage {
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.date {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.star-icon {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    color: #fbbf24;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.offer-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.company-info {
+    color: #64748b;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+/* Technologies / Tags */
+.tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Sections de contenu */
+.section-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #64748b;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 8px;
+}
+
+.section-content {
+    font-size: 15px;
+    color: #334155;
+    line-height: 1.5;
+}
+
+.email-link {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.email-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .detail-card {
+        padding: 20px;
+    }
+
+    .offer-title {
+        font-size: 20px;
+    }
+}
