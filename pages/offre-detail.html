@@ -1,64 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="../css/detail.css">
     <link rel="stylesheet" href="../css/header.css">
-    <title>Document</title>
+
+    <title>Détail de l'offre</title>
 </head>
+
 <body>
+
     <!-- Header -->
     <header>
         <div class="logo">StagesAlternances</div>
+
         <nav>
             <a href="../index.html" class="active">Offres</a>
-            <a href="../pages/offres-suivies.html">Suivies </a>
+            <a href="./offres-suivies.html">Suivies</a>
             <a href="./admin.html">Admin</a>
         </nav>
     </header>
 
-    <div class="container">
-        <!-- Lien de retour -->
-        <a href="../index.html" class="back-link">&larr; Retour aux offres</a>
 
-        <!-- Carte de détail principale -->
+    <div class="container">
+
+        <!-- Lien de retour -->
+        <a href="../index.html" class="back-link">
+            &larr; Retour aux offres
+        </a>
+
+
+        <!-- Détail de l'offre -->
         <main class="detail-card">
+
             <span class="star-icon">★</span>
 
             <div class="offer-header-top">
-                <span class="badge-stage">Stage</span>
-                <span class="date">8 septembre 2026</span>
+                <span id="offer-type" class="badge-stage"></span>
+                <span id="offer-date" class="date"></span>
             </div>
 
-            <h1 class="offer-title">Développeur Mobile React Native</h1>
-            <div class="company-info">MobApp _ Paris</div>
+            <h1 id="offer-title" class="offer-title"></h1>
 
-            <!-- Tags -->
-            <div class="tags">
-                <span class="tag">React Native</span>
-                <span class="tag">TypeScript</span>
-                <span class="tag">Firebase</span>
-            </div>
+            <div id="offer-company" class="company-info"></div>
+
+            <!-- Technologies -->
+            <div id="offer-technologies" class="tags"></div>
+
 
             <!-- Mission -->
-            <div class="section-title">Mission</div>
-            <div class="section-content">
-                Vous travaillerez sur notre application React Native publiée sur iOS et Android. Missions : nouvelles fonctionnalités, corrections de bugs, intégration Firebase et tests sur appareils réels.
+            <div class="section-title">
+                Mission
             </div>
 
-            <!-- Profil recherche -->
-            <div class="section-title">Profil recherché</div>
-            <div class="section-content">
-                Connaissance de React, curieux pour le mobile, capable de travailler en autonomie sur des tickets.
+            <div id="offer-description" class="section-content"></div>
+
+
+            <!-- Profil recherché -->
+            <div class="section-title">
+                Profil recherché
             </div>
+
+            <div id="offer-profile" class="section-content"></div>
+
 
             <!-- Candidature -->
-            <div class="section-title">Candidature</div>
-            <div class="section-content">
-                <a href="mailto:recrutement@mobapp.com" class="email-link">recrutement@mobapp.com</a>
+            <div class="section-title">
+                Candidature
             </div>
+
+            <div id="offer-application" class="section-content"></div>
+
         </main>
+
     </div>
+
+    
+
+    <script src="../js/detail.js"></script>
+
 </body>
+
 </html>
