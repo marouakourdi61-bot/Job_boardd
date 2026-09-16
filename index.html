@@ -29,18 +29,18 @@
 
         <!-- recherche  -->
         <div class="filters">
-            <input type="text" placeholder="Rechercher...">
-            <select>
+            <input  id="input_search" type="text" placeholder="Rechercher...">
+            <select id="filter_place">
                 <option>Toutes les villes</option>
                 <option>Paris</option>
                 <option>Lyon</option>
             </select>
-            <select>
+            <select id="filter_tec">
                 <option>Toutes les technos</option>
                 <option>React</option>
                 <option>Node.js</option>
             </select>
-            <select>
+            <select  id="filter_contrat">
                 <option>Tous les contrats</option>
                 <option>Stage</option>
                 <option>Alternance</option>
@@ -96,6 +96,14 @@
         </div>
 
     </div>
-    
+    <script src="./js/filters.js">
+          
+    </script>
+
+    <!-- <script> 
+    console.log("test");
+    alert("eee");
+
+    </script> -->
 </body>
 </html>
