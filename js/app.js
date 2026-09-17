@@ -20,6 +20,7 @@ async function init() {
     });
 
     afficherOffres(offres);
+    initFollowed_Offers();
 }
 
 init();
