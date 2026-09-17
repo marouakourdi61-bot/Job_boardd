@@ -1,5 +1,5 @@
 
-function getFollowed_Offers()
+function getFollowed_offers()
 {
     const followed = localStorage.getItem("followedOffers");
 
@@ -11,7 +11,16 @@ function getFollowed_Offers()
     return JSON.parse(followed);
 }
 
-function addFollowed_Offer(id)
+function removefollowed_offer(id)
+{
+    const followed = getFollowed_Offers();
+
+    const result = followed.filter((offerId) => offerId !== id);
+
+    localStorage.setItem("followedOffers", JSON.stringify(result));
+}
+
+function addFollowed_offer(id)
 {
     const followed = getFollowed_Offers();
 
