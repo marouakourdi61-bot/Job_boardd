@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,15 @@
     <link rel="stylesheet" href="./css/header.css">
     <title>Document</title>
 </head>
+
 <body>
 
     <div class="container">
         <!-- Header -->
         <header>
             <div class="logo">
-                
-                StagesAlternances   
+
+                StagesAlternances
             </div>
             <nav>
                 <a href="./pages/deposer-offre.html" class="active">Offres</a>
@@ -25,7 +27,7 @@
 
         <!-- Titre  -->
         <h1>Offres disponibles</h1>
-        <p class="subtitle">6 offres trouvées</p>
+        <p class="subtitle" id="result-count">0 offres trouvées</p>
 
         <!-- recherche  -->
         <div class="filters">
@@ -45,65 +47,22 @@
                 <option>Stage</option>
                 <option>Alternance</option>
             </select>
+
+            <button class="btn-date">
+                Date ↓
+            </button>
+
         </div>
 
         <!-- Liste -->
-        <div class="offer-card">
-            <span class="badge-stage">Stage</span>
-            <span class="date">8 septembre 2026</span>
-            <span class="star">suivre</span>
-            <div class="offer-title">Développeur Mobile React Native</div>
-            <div class="company-info">TechCorp - Paris</div>
-            <div class="description">Développez des fonctionnalités pour notre application mobile cross-platform.</div>
-            <div class="tags">
-                <span class="tag">React </span>
-                <span class="tag">TypeScript</span>
-                <span class="tag">Node.js</span>
-            </div>
-            <a href="./pages/offre-detail.html" class="btn-voir" >Voir</a>
-        </div>
 
-        <!-- Carte 2 -->
-        <div class="offer-card">
-            <span class="badge-stage">Stage</span>
-            <span class="date">8 septembre 2026</span>
-            <span class="star">suivre</span>
-            <div class="offer-title">Développeur Mobile React Nativer</div>
-            <div class="company-info">TechCorp - Paris</div>
-            <div class="description">Développez des fonctionnalités pour notre application mobile cross-platform.</div>
-            <div class="tags">
-                <span class="tag">React</span>
-                <span class="tag">TypeScript</span>
-                <span class="tag">Node.js</span>
-            </div>
-            <a href="./pages/offre-detail.html" class="btn-voir" >Voir</a>
-        </div>
+        <div id="offres-container"></div>
 
-        <!-- Carte 3 -->
-        <div class="offer-card">
-            <span class="badge-alternance">Alternance</span>
-            <span class="date">8 septembre 2026</span>
-            <span class="star">suivre</span>
-            <div class="offer-title">Développeur Mobile React Native</div>
-            <div class="company-info">TechCorp - Paris</div>
-            <div class="description">Développez des fonctionnalités pour notre application mobile cross-platform.</div>
-            <div class="tags">
-                <span class="tag">React</span>
-                <span class="tag">TypeScript</span>
-                <span class="tag">Node.js</span>
-            </div>
-            <a href="./pages/offre-detail.html" class="btn-voir" >Voir</a>
-        </div>
+
+
 
     </div>
-    <script src="./js/filters.js">
-          
-    </script>
-
-    <!-- <script> 
-    console.log("test");
-    alert("eee");
-
-    </script> -->
+    
 </body>
+
 </html>
