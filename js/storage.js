@@ -1,5 +1,4 @@
-
-function getFollowed_offers()
+function getFollowed_Offers()
 {
     const followed = localStorage.getItem("followedOffers");
 
@@ -11,16 +10,8 @@ function getFollowed_offers()
     return JSON.parse(followed);
 }
 
-function removefollowed_offer(id)
-{
-    const followed = getFollowed_Offers();
 
-    const result = followed.filter((offerId) => offerId !== id);
-
-    localStorage.setItem("followedOffers", JSON.stringify(result));
-}
-
-function addFollowed_offer(id)
+function addFollowed_Offer(id)
 {
     const followed = getFollowed_Offers();
 
@@ -31,3 +22,49 @@ function addFollowed_offer(id)
 
     localStorage.setItem("followedOffers", JSON.stringify(followed));
 }
+
+
+function removeFollowed_Offer(id)
+{
+    const followed = getFollowed_Offers();
+
+    const result = followed.filter((offerId) => offerId !== id);
+
+    localStorage.setItem("followedOffers", JSON.stringify(result));
+}
+
+
+function initFollowed_Offers()
+{
+    setTimeout(() =>
+    {
+        const stars = document.querySelectorAll(".star");
+
+        stars.forEach((star) =>
+        {
+            const id = Number(star.dataset.id);
+
+            if (getFollowed_Offers().includes(id))
+            {
+                star.textContent = "★";
+            }
+
+            star.addEventListener("click", () =>
+            {
+                if (getFollowed_Offers().includes(id))
+                {
+                    removeFollowed_Offer(id);
+                    star.textContent = "☆";
+                }
+                else
+                {
+                    addFollowed_Offer(id);
+                    star.textContent = "★";
+                }
+            });
+        });
+    }, 100);
+}
+
+
+initFollowed_Offers();
