@@ -50,6 +50,7 @@ function afficherOffres(offres) {
         const star = document.createElement("span");
         star.classList.add("star");
         star.textContent = "☆";
+        star.dataset.id = offre.id;
 
 
 
