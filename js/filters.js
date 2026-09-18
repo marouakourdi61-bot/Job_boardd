@@ -22,19 +22,44 @@ async function get_offers()
 async function filter()
 {
     const get_data = await get_offers();
+
     get_data.forEach((offer) =>
-{
-    offer.technologies.forEach((technologie) =>
+    {
+        offer.technologies.forEach((technologie) =>
+        {
+            const option = document.createElement("option");
+
+            if (!filterTec.innerHTML.includes(technologie))
+            {
+                option.textContent = technologie;
+                filterTec.appendChild(option);
+            }
+        });
+    });
+
+
+    get_data.forEach((offer) =>
     {
         const option = document.createElement("option");
 
-        if (!filterTec.innerHTML.includes(technologie))
+        if (!filterPlace.innerHTML.includes(offer.ville))
         {
-            option.textContent = technologie;
-            filterTec.appendChild(option);
+            option.textContent = offer.ville;
+            filterPlace.appendChild(option);
         }
     });
-});
+
+
+    get_data.forEach((offer) =>
+    {
+        const option = document.createElement("option");
+
+        if (!filterContrat.innerHTML.includes(offer.typeContrat))
+        {
+            option.textContent = offer.typeContrat;
+            filterContrat.appendChild(option);
+        }
+    });
 
 
     inputSearch.addEventListener("input", () =>
