@@ -22,6 +22,19 @@ async function get_offers()
 async function filter()
 {
     const get_data = await get_offers();
+    get_data.forEach((offer) =>
+{
+    offer.technologies.forEach((technologie) =>
+    {
+        const option = document.createElement("option");
+
+        if (!filterTec.innerHTML.includes(technologie))
+        {
+            option.textContent = technologie;
+            filterTec.appendChild(option);
+        }
+    });
+});
 
 
     inputSearch.addEventListener("input", () =>
