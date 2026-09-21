@@ -102,10 +102,8 @@ function afficherOffres(offres) {
         boutonVoir.textContent = "Voir";
 
         boutonVoir.addEventListener("click", () => {
-
             window.location.href =
-                `./pages/offre-detail.html?id=${offre.id}`;
-
+                `${window.location.pathname.includes("/pages/") ? "./offre-detail.html" : "./pages/offre-detail.html"}?id=${offre.id}`;
         });
 
 
