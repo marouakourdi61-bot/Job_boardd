@@ -21,6 +21,7 @@ async function seed() {
         await connection.execute("TRUNCATE TABLE entreprise");
 
         await connection.execute("SET FOREIGN_KEY_CHECKS = 1");
+        
 
         console.log("Anciennes données supprimées.");
 
