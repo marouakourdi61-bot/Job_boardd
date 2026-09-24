@@ -4,7 +4,7 @@ function afficherOffres(offres) {
 
     container.innerHTML = "";
 
-    // Nombre d'offres
+    // Nombre offre
     resultCount.textContent = `${offres.length} offres trouvées`;
 
     offres.forEach((offre) => {

@@ -1,59 +1,69 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%- include("../partials/header", { title: "Offres disponibles" })%>
 
-    <title>Offres de stage et alternance</title>
-</head>
+<%- include("../partials/navbar") %>
 
-<body>
 
-    <h1>Offres de stage et alternance</h1>
 
-    <p>
-        <strong><%= offres.length %></strong> offres disponibles
-    </p>
+    <div id="offres-container">
 
-    <% if (offres.length === 0) { %>
+    <% offres.forEach((offre) => { %>
 
-        <p>Aucune offre disponible.</p>
+        <article class="offer-card">
 
-    <% } else { %>
+            <div class="offer-header">
 
-        <% offres.forEach(offre => { %>
+                <div>
+                    <span class="badge-stage">
+                        <%= offre.type_contrat %>
+                    </span>
 
-            <article>
-                <h2>
-                    <%= offre.titre %>
-                </h2>
+                    <span class="date">
+                        <%= offre.date_publication %>
+                    </span>
+                </div>
 
-                <p>
-                    <strong>Ville :</strong>
-                    <%= offre.ville %>
-                </p>
+                <span class="star">☆</span>
 
-                <p>
-                    <strong>Type :</strong>
-                    <%= offre.type_contrat %>
-                </p>
+            </div>
 
-                <p>
-                    <strong>Description :</strong>
-                    <%= offre.description_courte %>
-                </p>
+            <h2 class="offer-title">
+                <%= offre.titre %>
+            </h2>
 
-                <p>
-                    <strong>Date :</strong>
-                    <%= offre.date_publication %>
-                </p>
+            <p class="company-info">
+                <%= offre.entreprise_nom %> - <%= offre.ville %>
+            </p>
 
-                <hr>
-            </article>
+            <p class="description">
+                <%= offre.description_courte %>
+            </p>
 
-        <% }) %>
+            <div class="tags">
 
-    <% } %>
+                <% offre.technologies.forEach((technologie) => { %>
 
-</body>
-</html>
+                    <span class="tag">
+                        <%= technologie.nom %>
+                    </span>
+
+                <% }) %>
+
+            </div>
+
+            <a
+                class="btn-voir"
+                href="/offres/<%= offre.id %>"
+            >
+                Voir
+            </a>
+
+        </article>
+
+    <% }) %>
+
+</div>
+
+
+
+    <%- include("../partials/footer") %>
+
