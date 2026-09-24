@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= offre.titre %></title>
+</head>
+
+<body>
+
+    <a href="/offres">
+        ← Retour aux offres
+    </a>
+
+    <h1>
+        <%= offre.titre %>
+    </h1>
+
+    <h2>
+        Entreprise
+    </h2>
+
+    <p>
+        <strong>Nom :</strong>
+        <%= offre.entreprise_nom %>
+    </p>
+
+    <p>
+        <strong>Ville :</strong>
+        <%= offre.entreprise_ville %>
+    </p>
+
+    <p>
+        <%= offre.entreprise_description %>
+    </p>
+
+    <h2>
+        Informations sur l'offre
+    </h2>
+
+    <p>
+        <strong>Ville :</strong>
+        <%= offre.ville %>
+    </p>
+
+    <p>
+        <strong>Type de contrat :</strong>
+        <%= offre.type_contrat %>
+    </p>
+
+    <p>
+        <strong>Date de publication :</strong>
+        <%= offre.date_publication %>
+    </p>
+
+    <h2>
+        Description
+    </h2>
+
+    <p>
+        <%= offre.description_longue %>
+    </p>
+
+    <h2>
+        Profil recherché
+    </h2>
+
+    <p>
+        <%= offre.profil_recherche %>
+    </p>
+
+    <h2>
+        Technologies
+    </h2>
+
+    <ul>
+        <% offre.technologies.forEach(technologie => { %>
+
+            <li>
+                <%= technologie.nom %>
+            </li>
+
+        <% }) %>
+    </ul>
+
+    <h2>
+        Candidature
+    </h2>
+
+    <a
+        href="<%= offre.lien_candidature %>"
+        target="_blank"
+    >
+        Postuler à cette offre
+    </a>
+
+</body>
+</html>

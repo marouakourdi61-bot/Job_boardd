@@ -28,3 +28,25 @@ app.get("/offres", async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });
+
+
+
+// aficher detail
+app.get("/offres/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const offre = await offreRepository.getOffreById(id);
+
+        if (!offre) {
+            return res.status(404).send("Offre introuvable.");
+        }
+
+        res.render("offres/detail", {
+            offre: offre
+        });
+    } catch (error) {
+        console.error("Erreur :", error.message);
+        res.status(500).send("Erreur lors de la récupération de l'offre.");
+    }
+});
