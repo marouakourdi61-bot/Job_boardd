@@ -1,14 +1,19 @@
 {
   "name": "job_bordd",
   "version": "1.0.0",
- "scripts": {
+  "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
     "db:seed": "node database/seed.js",
     "db:reset": "node database/reset.js && node database/seed.js"
-},
+  },
   "dependencies": {
     "dotenv": "^18.0.3",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
     "mysql2": "^3.24.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
