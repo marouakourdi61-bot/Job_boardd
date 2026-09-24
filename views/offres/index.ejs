@@ -1,69 +1,138 @@
-<%- include("../partials/header", { title: "Offres disponibles" })%>
+<%- include("../partials/header", { title: "Offres disponibles" }) %>
 
 <%- include("../partials/navbar") %>
 
+<div class="container">
+
+    <!-- Titre -->
+    <h1>Offres disponibles</h1>
+
+    <p class="subtitle" id="result-count">
+        <%= offres.length %> offres trouvées
+    </p>
 
 
+    <!-- Recherche et filtres -->
+    <div class="filters">
+
+        <input
+            id="input_search"
+            type="text"
+            placeholder="Rechercher..."
+        >
+
+        <select id="filter_place">
+            <option>Toutes les villes</option>
+        </select>
+
+        <select id="filter_tec">
+            <option>Toutes les technos</option>
+        </select>
+
+        <select id="filter_contrat">
+            <option>Tous les contrats</option>
+            <option>Stage</option>
+            <option>Alternance</option>
+        </select>
+
+        <button class="btn-date">
+            Date ↓
+        </button>
+
+    </div>
+
+
+    <!-- Liste des offres -->
     <div id="offres-container">
 
-    <% offres.forEach((offre) => { %>
+        <% offres.forEach((offre) => { %>
 
-        <article class="offer-card">
+            <article class="offer-card">
 
-            <div class="offer-header">
+                <!-- Header de la carte -->
+                <div class="offer-header">
 
-                <div>
-                    <span class="badge-stage">
-                        <%= offre.type_contrat %>
+                    <div>
+
+                        <span class="<%= offre.type_contrat.toLowerCase() === 'stage'
+                            ? 'badge-stage'
+                            : 'badge-alternance' %>">
+
+                            <%= offre.type_contrat %>
+
+                        </span>
+
+                        <span class="date">
+                            <%= offre.date_publication %>
+                        </span>
+
+                    </div>
+
+
+                    <!-- Étoile -->
+                    <span
+                        class="star"
+                        data-id="<%= offre.id %>">
+
+                        ☆
+
                     </span>
 
-                    <span class="date">
-                        <%= offre.date_publication %>
-                    </span>
                 </div>
 
-                <span class="star">☆</span>
 
-            </div>
+                <!-- Titre -->
+                <h2 class="offer-title">
+                    <%= offre.titre %>
+                </h2>
 
-            <h2 class="offer-title">
-                <%= offre.titre %>
-            </h2>
 
-            <p class="company-info">
-                <%= offre.entreprise_nom %> - <%= offre.ville %>
-            </p>
+                <!-- Entreprise -->
+                <p class="company-info">
 
-            <p class="description">
-                <%= offre.description_courte %>
-            </p>
+                    <%= offre.entreprise_nom %> -
+                    <%= offre.ville %>
 
-            <div class="tags">
+                </p>
 
-                <% offre.technologies.forEach((technologie) => { %>
 
-                    <span class="tag">
-                        <%= technologie.nom %>
-                    </span>
+                <!-- Description -->
+                <p class="description">
 
-                <% }) %>
+                    <%= offre.description_courte %>
 
-            </div>
+                </p>
 
-            <a
-                class="btn-voir"
-                href="/offres/<%= offre.id %>"
-            >
-                Voir
-            </a>
 
-        </article>
+                <!-- Technologies -->
+                <div class="tags">
 
-    <% }) %>
+                    <% offre.technologies.forEach((technologie) => { %>
+
+                        <span class="tag">
+                            <%= technologie.nom %>
+                        </span>
+
+                    <% }) %>
+
+                </div>
+
+
+                <!-- Bouton Voir -->
+                <a
+                    class="btn-voir"
+                    href="/offres/<%= offre.id %>">
+
+                    Voir
+
+                </a>
+
+            </article>
+
+        <% }) %>
+
+    </div>
 
 </div>
 
-
-
-    <%- include("../partials/footer") %>
-
+<%- include("../partials/footer") %>

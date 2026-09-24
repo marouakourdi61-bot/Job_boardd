@@ -4,15 +4,15 @@
 
 <div class="container">
 
-    <!-- Lien de retour -->
+   
     <a href="/offres" class="back-link">
         &larr; Retour aux offres
     </a>
 
-    <!-- Détail de l'offre -->
+    
     <main class="detail-card">
 
-        <!-- Étoile -->
+        
         <span class="star-icon">★</span>
 
         <div class="offer-header-top">
@@ -22,27 +22,27 @@
                     ? 'badge-stage'
                     : 'badge-alternance' %>">
 
-                <%= offre.type_contrat %>
+                
 
             </span>
 
             <span class="date">
-                <%= offre.date_publication %>
+                
             </span>
 
         </div>
 
-        <!-- Titre -->
+        
         <h1 class="offer-title">
             <%= offre.titre %>
         </h1>
 
-        <!-- Entreprise -->
+        
         <div class="company-info">
             <%= offre.entreprise_nom %> - <%= offre.ville %>
         </div>
 
-        <!-- Technologies -->
+        
         <div class="tags">
 
             <% offre.technologies.forEach((technologie) => { %>
@@ -56,7 +56,7 @@
         </div>
 
 
-        <!-- Mission -->
+        
         <div class="section-title">
             Mission
         </div>
@@ -66,7 +66,7 @@
         </div>
 
 
-        <!-- Profil recherché -->
+        
         <div class="section-title">
             Profil recherché
         </div>
@@ -76,7 +76,7 @@
         </div>
 
 
-        <!-- Candidature -->
+        
         <div class="section-title">
             Candidature
         </div>
