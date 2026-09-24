@@ -1,99 +1,96 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%- include("../partials/header", { title: offre.titre }) %>
 
-    <title><%= offre.titre %></title>
-</head>
+<%- include("../partials/navbar") %>
 
-<body>
+<div class="container">
 
-    <a href="/offres">
-        ← Retour aux offres
+    <!-- Lien de retour -->
+    <a href="/offres" class="back-link">
+        &larr; Retour aux offres
     </a>
 
-    <h1>
-        <%= offre.titre %>
-    </h1>
+    <!-- Détail de l'offre -->
+    <main class="detail-card">
 
-    <h2>
-        Entreprise
-    </h2>
+        <!-- Étoile -->
+        <span class="star-icon">★</span>
 
-    <p>
-        <strong>Nom :</strong>
-        <%= offre.entreprise_nom %>
-    </p>
+        <div class="offer-header-top">
 
-    <p>
-        <strong>Ville :</strong>
-        <%= offre.entreprise_ville %>
-    </p>
+            <span
+                class="<%= offre.type_contrat.toLowerCase() === 'stage'
+                    ? 'badge-stage'
+                    : 'badge-alternance' %>">
 
-    <p>
-        <%= offre.entreprise_description %>
-    </p>
+                <%= offre.type_contrat %>
 
-    <h2>
-        Informations sur l'offre
-    </h2>
+            </span>
 
-    <p>
-        <strong>Ville :</strong>
-        <%= offre.ville %>
-    </p>
+            <span class="date">
+                <%= offre.date_publication %>
+            </span>
 
-    <p>
-        <strong>Type de contrat :</strong>
-        <%= offre.type_contrat %>
-    </p>
+        </div>
 
-    <p>
-        <strong>Date de publication :</strong>
-        <%= offre.date_publication %>
-    </p>
+        <!-- Titre -->
+        <h1 class="offer-title">
+            <%= offre.titre %>
+        </h1>
 
-    <h2>
-        Description
-    </h2>
+        <!-- Entreprise -->
+        <div class="company-info">
+            <%= offre.entreprise_nom %> - <%= offre.ville %>
+        </div>
 
-    <p>
-        <%= offre.description_longue %>
-    </p>
+        <!-- Technologies -->
+        <div class="tags">
 
-    <h2>
-        Profil recherché
-    </h2>
+            <% offre.technologies.forEach((technologie) => { %>
 
-    <p>
-        <%= offre.profil_recherche %>
-    </p>
+                <span class="tag">
+                    <%= technologie.nom %>
+                </span>
 
-    <h2>
-        Technologies
-    </h2>
+            <% }) %>
 
-    <ul>
-        <% offre.technologies.forEach(technologie => { %>
+        </div>
 
-            <li>
-                <%= technologie.nom %>
-            </li>
 
-        <% }) %>
-    </ul>
+        <!-- Mission -->
+        <div class="section-title">
+            Mission
+        </div>
 
-    <h2>
-        Candidature
-    </h2>
+        <div class="section-content">
+            <%= offre.description_longue %>
+        </div>
 
-    <a
-        href="<%= offre.lien_candidature %>"
-        target="_blank"
-    >
-        Postuler à cette offre
-    </a>
 
-</body>
-</html>
+        <!-- Profil recherché -->
+        <div class="section-title">
+            Profil recherché
+        </div>
+
+        <div class="section-content">
+            <%= offre.profil_recherche %>
+        </div>
+
+
+        <!-- Candidature -->
+        <div class="section-title">
+            Candidature
+        </div>
+
+        <div class="section-content">
+
+            <a href="<%= offre.lien_candidature %>" target="_blank">
+                Postuler à cette offre
+            </a>
+
+        </div>
+
+    </main>
+
+</div>
+
+<%- include("../partials/footer") %>
