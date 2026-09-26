@@ -1,69 +1,123 @@
-<%- include("../partials/header", { title: "Offres disponibles" })%>
+<%- include("../partials/header", { title: "Offres disponibles" }) %>
 
-<%- include("../partials/navbar") %>
+    <%- include("../partials/navbar") %>
+
+        <div class="container">
+
+            <!-- Titre -->
+            <h1>Offres disponibles</h1>
+
+            <p class="subtitle" id="result-count">
+                <%= offres.length %> offres trouvées
+            </p>
 
 
+            <!-- Recherche -->
+            <div class="filters">
 
-    <div id="offres-container">
+                <form action="/offres" method="GET">
 
-    <% offres.forEach((offre) => { %>
+                    <input id="input_search" type="text" name="search" placeholder="Rechercher...">
 
-        <article class="offer-card">
+                    <button type="submit">
+                        Rechercher
+                    </button>
+                </form>
 
-            <div class="offer-header">
+                <!-- Filtre ville -->
+                <select id="filter_place">
+                    <option>Toutes les villes</option>
+                </select>
 
-                <div>
-                    <span class="badge-stage">
-                        <%= offre.type_contrat %>
-                    </span>
 
-                    <span class="date">
-                        <%= offre.date_publication %>
-                    </span>
-                </div>
+                <!-- Filtre technologie -->
+                <select id="filter_tec">
+                    <option>Toutes les technos</option>
+                </select>
 
-                <span class="star">☆</span>
+
+                <!-- Filtre contrat -->
+                <select id="filter_contrat">
+                    <option>Tous les contrats</option>
+                    <option>Stage</option>
+                    <option>Alternance</option>
+                </select>
+
+
+                <!-- Tri par date -->
+                <button class="btn-date">
+                    Date ↓
+                </button>
 
             </div>
 
-            <h2 class="offer-title">
-                <%= offre.titre %>
-            </h2>
+            <!-- Liste des offres -->
+            <div id="offres-container">
 
-            <p class="company-info">
-                <%= offre.entreprise_nom %> - <%= offre.ville %>
-            </p>
+                <% offres.forEach((offre)=> { %>
 
-            <p class="description">
-                <%= offre.description_courte %>
-            </p>
+                    <article class="offer-card">
 
-            <div class="tags">
+                        <div class="offer-header">
 
-                <% offre.technologies.forEach((technologie) => { %>
+                            <div>
 
-                    <span class="tag">
-                        <%= technologie.nom %>
-                    </span>
+                                <span class="badge-stage">
+                                    <%= offre.type_contrat %>
+                                </span>
 
-                <% }) %>
+                                <span class="date">
+                                    <%= offre.date_publication %>
+                                </span>
+
+                            </div>
+
+                            <span class="star">
+                                ☆
+                            </span>
+
+                        </div>
+
+
+                        <h2 class="offer-title">
+                            <%= offre.titre %>
+                        </h2>
+
+
+                        <p class="company-info">
+                            <%= offre.entreprise_nom %> -
+                                <%= offre.ville %>
+                        </p>
+
+
+                        <p class="description">
+                            <%= offre.description_courte %>
+                        </p>
+
+
+                        <div class="tags">
+
+                            <% offre.technologies.forEach((technologie)=> { %>
+
+                                <span class="tag">
+                                    <%= technologie.nom %>
+                                </span>
+
+                                <% }) %>
+
+                        </div>
+
+
+                        <a class="btn-voir" href="/offres/<%= offre.id %>">
+                            Voir
+                        </a>
+
+                    </article>
+
+                    <% }) %>
 
             </div>
 
-            <a
-                class="btn-voir"
-                href="/offres/<%= offre.id %>"
-            >
-                Voir
-            </a>
+        </div>
 
-        </article>
-
-    <% }) %>
-
-</div>
-
-
-
-    <%- include("../partials/footer") %>
-
+        <%- include("../partials/footer") %>

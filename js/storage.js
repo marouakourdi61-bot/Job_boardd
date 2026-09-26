@@ -9,7 +9,7 @@ function getFollowed_Offers()
 
     return JSON.parse(followed);
 }
-
+!
 
 function addFollowed_Offer(id)
 {
