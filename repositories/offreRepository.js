@@ -1,7 +1,8 @@
 const db = require("../config/database");
 
-async function getAllOffres() {
-    const [rows] = await db.execute(`
+async function getAllOffres(search = "") {
+
+    let sql = `
         SELECT
             offre.*,
             entreprise.nom AS entreprise_nom,
@@ -10,10 +11,37 @@ async function getAllOffres() {
         FROM offre
         JOIN entreprise
             ON offre.entreprise_id = entreprise.id
-        ORDER BY date_publication DESC
-    `);
+    `;
+
+    const params = [];
+
+    if (search) {
+
+        sql += `
+            WHERE offre.titre LIKE ?
+            OR entreprise.nom LIKE ?
+            OR offre.description_courte LIKE ?
+            OR offre.description_longue LIKE ?
+        `;
+
+        const keyword = `%${search}%`;
+
+        params.push(
+            keyword,
+            keyword,
+            keyword,
+            keyword
+        );
+    }
+
+    sql += `
+        ORDER BY offre.date_publication DESC
+    `;
+
+    const [rows] = await db.execute(sql, params);
 
     for (const offre of rows) {
+
         const [technologies] = await db.execute(
             `
             SELECT technologie.nom
