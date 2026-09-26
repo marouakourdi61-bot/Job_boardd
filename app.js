@@ -29,6 +29,7 @@ app.get("/offres", async (req, res) => {
         const offres = await offreRepository.getAllOffres(search, ville, typeContrat, technologie);
 
         const villes = await offreRepository.getAllVilles();
+        const technologies = await offreRepository.getAllTechnologies();
 
         res.render("offres/index", {
             offres: offres,
@@ -36,7 +37,8 @@ app.get("/offres", async (req, res) => {
             ville: ville,
             typeContrat: typeContrat,
             technologie: technologie,
-            villes: villes
+            villes: villes,
+            technologies: technologies
         });
     } catch (error) {
         console.error("Erreur :", error.message);

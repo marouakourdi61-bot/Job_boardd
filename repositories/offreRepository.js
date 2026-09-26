@@ -16,8 +16,8 @@ async function getAllOffres(search = "", ville = "", typeContrat = "", technolog
     const params = [];
     const conditions = [];
 
-if (search) {
-    conditions.push(`
+    if (search) {
+        conditions.push(`
         (
             offre.titre LIKE ?
             OR entreprise.nom LIKE ?
@@ -26,29 +26,44 @@ if (search) {
         )
     `);
 
-    const keyword = `%${search}%`;
+        const keyword = `%${search}%`;
 
-    params.push(
-        keyword,
-        keyword,
-        keyword,
-        keyword
-    );
+        params.push(
+            keyword,
+            keyword,
+            keyword,
+            keyword
+        );
+    }
+
+    if (ville) {
+        conditions.push("offre.ville = ?");
+        params.push(ville);
+    }
+
+    if (typeContrat) {
+        conditions.push("offre.type_contrat = ?");
+        params.push(typeContrat);
+    }
+
+    if (technologie) {
+    conditions.push(`
+        EXISTS (
+            SELECT 1
+            FROM offre_technologie
+            JOIN technologie
+                ON technologie.id = offre_technologie.technologie_id
+            WHERE offre_technologie.offre_id = offre.id
+            AND technologie.nom = ?
+        )
+    `);
+
+    params.push(technologie);
 }
 
-if (ville) {
-    conditions.push("offre.ville = ?");
-    params.push(ville);
-}
-
-if (typeContrat) {
-    conditions.push("offre.type_contrat = ?");
-    params.push(typeContrat);
-}
-
-if (conditions.length > 0) {
-    sql += " WHERE " + conditions.join(" AND ");
-}
+    if (conditions.length > 0) {
+        sql += " WHERE " + conditions.join(" AND ");
+    }
 
     sql += `
         ORDER BY offre.date_publication DESC
@@ -87,6 +102,17 @@ async function getAllVilles() {
     return rows;
 }
 
+
+
+async function getAllTechnologies() {
+    const [rows] = await db.execute(`
+        SELECT id, nom
+        FROM technologie
+        ORDER BY nom ASC
+    `);
+
+    return rows;
+}
 
 
 async function getOffreById(id) {
@@ -131,5 +157,6 @@ async function getOffreById(id) {
 module.exports = {
     getAllOffres,
     getOffreById,
-    getAllVilles
+    getAllVilles,
+    getAllTechnologies
 };
