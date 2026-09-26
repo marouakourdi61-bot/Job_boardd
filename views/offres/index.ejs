@@ -13,9 +13,9 @@
 
 
             <!-- Recherche -->
-            <div class="filters">
+            <form action="/offres" method="GET">
 
-                <form action="/offres" method="GET">
+                <div class="filters">
 
                     <input id="input_search" type="text" name="search" placeholder="Rechercher...">
 
@@ -73,79 +73,94 @@
 
 
                     <!-- Tri par date -->
-                    <button class="btn-date">
-                        Date ↓
-                    </button>
+                    <% if (sort==="desc" ) { %>
 
-            </div>
+                        <input type="hidden" name="sort" value="asc">
+
+                        <button type="submit" class="btn-date">
+                            Date ↑
+                        </button>
+
+                        <% } else { %>
+
+                            <input type="hidden" name="sort" value="desc">
+
+                            <button type="submit" class="btn-date">
+                                Date ↓
+                            </button>
+
+                            <% } %>
             </form>
 
-            <!-- Liste des offres -->
-            <div id="offres-container">
+        </div>
 
-                <% offres.forEach((offre)=> { %>
 
-                    <article class="offer-card">
+        <!-- Liste des offres -->
+        <div id="offres-container">
 
-                        <div class="offer-header">
+            <% offres.forEach((offre)=> { %>
 
-                            <div>
+                <article class="offer-card">
 
-                                <span class="badge-stage">
-                                    <%= offre.type_contrat %>
-                                </span>
+                    <div class="offer-header">
 
-                                <span class="date">
-                                    <%= offre.date_publication %>
-                                </span>
+                        <div>
 
-                            </div>
+                            <span class="badge-stage">
+                                <%= offre.type_contrat %>
+                            </span>
 
-                            <span class="star">
-                                ☆
+                            <span class="date">
+                                <%= offre.date_publication %>
                             </span>
 
                         </div>
 
+                        <span class="star">
+                            ☆
+                        </span>
 
-                        <h2 class="offer-title">
-                            <%= offre.titre %>
-                        </h2>
-
-
-                        <p class="company-info">
-                            <%= offre.entreprise_nom %> -
-                                <%= offre.ville %>
-                        </p>
+                    </div>
 
 
-                        <p class="description">
-                            <%= offre.description_courte %>
-                        </p>
+                    <h2 class="offer-title">
+                        <%= offre.titre %>
+                    </h2>
 
 
-                        <div class="tags">
-
-                            <% offre.technologies.forEach((technologie)=> { %>
-
-                                <span class="tag">
-                                    <%= technologie.nom %>
-                                </span>
-
-                                <% }) %>
-
-                        </div>
+                    <p class="company-info">
+                        <%= offre.entreprise_nom %> -
+                            <%= offre.ville %>
+                    </p>
 
 
-                        <a class="btn-voir" href="/offres/<%= offre.id %>">
-                            Voir
-                        </a>
+                    <p class="description">
+                        <%= offre.description_courte %>
+                    </p>
 
-                    </article>
 
-                    <% }) %>
+                    <div class="tags">
 
-            </div>
+                        <% offre.technologies.forEach((technologie)=> { %>
+
+                            <span class="tag">
+                                <%= technologie.nom %>
+                            </span>
+
+                            <% }) %>
+
+                    </div>
+
+
+                    <a class="btn-voir" href="/offres/<%= offre.id %>">
+                        Voir
+                    </a>
+
+                </article>
+
+                <% }) %>
+
+        </div>
 
         </div>
         <script>

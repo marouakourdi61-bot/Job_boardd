@@ -19,6 +19,7 @@ app.get("/offres", async (req, res) => {
         const ville = req.query.ville || "";
         const typeContrat = req.query.typeContrat || "";
         const technologie = req.query.technologie || "";
+        const sort = req.query.sort || "desc";
 
         console.log("Mot-clé :", search);
 
@@ -26,7 +27,7 @@ app.get("/offres", async (req, res) => {
         console.log("Type contrat :", typeContrat);
         console.log("Technologie :", technologie);
 
-        const offres = await offreRepository.getAllOffres(search, ville, typeContrat, technologie);
+        const offres = await offreRepository.getAllOffres(search, ville, typeContrat, technologie, sort);
 
         const villes = await offreRepository.getAllVilles();
         const technologies = await offreRepository.getAllTechnologies();
@@ -38,7 +39,8 @@ app.get("/offres", async (req, res) => {
             typeContrat: typeContrat,
             technologie: technologie,
             villes: villes,
-            technologies: technologies
+            technologies: technologies,
+            sort: sort
         });
     } catch (error) {
         console.error("Erreur :", error.message);
