@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-async function getAllOffres(search = "") {
+async function getAllOffres(search = "", ville = "", typeContrat = "", technologie = "") {
 
     let sql = `
         SELECT
@@ -14,25 +14,41 @@ async function getAllOffres(search = "") {
     `;
 
     const params = [];
+    const conditions = [];
 
-    if (search) {
-
-        sql += `
-            WHERE offre.titre LIKE ?
+if (search) {
+    conditions.push(`
+        (
+            offre.titre LIKE ?
             OR entreprise.nom LIKE ?
             OR offre.description_courte LIKE ?
             OR offre.description_longue LIKE ?
-        `;
+        )
+    `);
 
-        const keyword = `%${search}%`;
+    const keyword = `%${search}%`;
 
-        params.push(
-            keyword,
-            keyword,
-            keyword,
-            keyword
-        );
-    }
+    params.push(
+        keyword,
+        keyword,
+        keyword,
+        keyword
+    );
+}
+
+if (ville) {
+    conditions.push("offre.ville = ?");
+    params.push(ville);
+}
+
+if (typeContrat) {
+    conditions.push("offre.type_contrat = ?");
+    params.push(typeContrat);
+}
+
+if (conditions.length > 0) {
+    sql += " WHERE " + conditions.join(" AND ");
+}
 
     sql += `
         ORDER BY offre.date_publication DESC
@@ -58,6 +74,20 @@ async function getAllOffres(search = "") {
 
     return rows;
 }
+
+
+
+async function getAllVilles() {
+    const [rows] = await db.execute(`
+        SELECT DISTINCT ville
+        FROM offre
+        ORDER BY ville ASC
+    `);
+
+    return rows;
+}
+
+
 
 async function getOffreById(id) {
     const [rows] = await db.execute(
@@ -97,7 +127,9 @@ async function getOffreById(id) {
     return offre;
 }
 
+
 module.exports = {
     getAllOffres,
-    getOffreById
+    getOffreById,
+    getAllVilles
 };

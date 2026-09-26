@@ -16,14 +16,27 @@ app.get("/offres", async (req, res) => {
     try {
 
         const search = req.query.search || "";
+        const ville = req.query.ville || "";
+        const typeContrat = req.query.typeContrat || "";
+        const technologie = req.query.technologie || "";
 
         console.log("Mot-clé :", search);
 
-        const offres = await offreRepository.getAllOffres(search);
+        console.log("Ville :", ville);
+        console.log("Type contrat :", typeContrat);
+        console.log("Technologie :", technologie);
+
+        const offres = await offreRepository.getAllOffres(search, ville, typeContrat, technologie);
+
+        const villes = await offreRepository.getAllVilles();
 
         res.render("offres/index", {
             offres: offres,
-            search: search
+            search: search,
+            ville: ville,
+            typeContrat: typeContrat,
+            technologie: technologie,
+            villes: villes
         });
     } catch (error) {
         console.error("Erreur :", error.message);

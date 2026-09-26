@@ -22,34 +22,43 @@
                     <button type="submit">
                         Rechercher
                     </button>
-                </form>
-
-                <!-- Filtre ville -->
-                <select id="filter_place">
-                    <option>Toutes les villes</option>
-                </select>
 
 
-                <!-- Filtre technologie -->
-                <select id="filter_tec">
-                    <option>Toutes les technos</option>
-                </select>
+                    <!-- Filtre ville -->
+                    <select id="filter_place" name="ville">
+                        <option value="">Toutes les villes</option>
+
+                        <% villes.forEach((villeOption)=> { %>
+
+                            <option value="<%= villeOption.ville %>" <%=ville===villeOption.ville ? "selected" : "" %>>
+                                <%= villeOption.ville %>
+                            </option>
+
+                            <% }) %>
+                    </select>
 
 
-                <!-- Filtre contrat -->
-                <select id="filter_contrat">
-                    <option>Tous les contrats</option>
-                    <option>Stage</option>
-                    <option>Alternance</option>
-                </select>
+                    <!-- Filtre technologie -->
+                    <select id="filter_tec">
+                        <option>Toutes les technos</option>
+                    </select>
 
 
-                <!-- Tri par date -->
-                <button class="btn-date">
-                    Date ↓
-                </button>
+                    <!-- Filtre contrat -->
+                    <select id="filter_contrat">
+                        <option>Tous les contrats</option>
+                        <option>Stage</option>
+                        <option>Alternance</option>
+                    </select>
+
+
+                    <!-- Tri par date -->
+                    <button class="btn-date">
+                        Date ↓
+                    </button>
 
             </div>
+            </form>
 
             <!-- Liste des offres -->
             <div id="offres-container">
@@ -119,5 +128,11 @@
             </div>
 
         </div>
+        <script>
+            const filterPlace = document.querySelector("#filter_place");
 
+            filterPlace.addEventListener("change", () => {
+                filterPlace.form.submit();
+            });
+        </script>
         <%- include("../partials/footer") %>
