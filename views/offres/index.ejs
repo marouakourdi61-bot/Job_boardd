@@ -22,34 +22,63 @@
                     <button type="submit">
                         Rechercher
                     </button>
-                </form>
-
-                <!-- Filtre ville -->
-                <select id="filter_place">
-                    <option>Toutes les villes</option>
-                </select>
 
 
-                <!-- Filtre technologie -->
-                <select id="filter_tec">
-                    <option>Toutes les technos</option>
-                </select>
+                    <!-- Filtre ville -->
+                    <select id="filter_place" name="ville">
+                        <option value="">Toutes les villes</option>
+
+                        <% villes.forEach((villeOption)=> { %>
+
+                            <option value="<%= villeOption.ville %>" <%=ville===villeOption.ville ? "selected" : "" %>>
+                                <%= villeOption.ville %>
+                            </option>
+
+                            <% }) %>
+                    </select>
 
 
-                <!-- Filtre contrat -->
-                <select id="filter_contrat">
-                    <option>Tous les contrats</option>
-                    <option>Stage</option>
-                    <option>Alternance</option>
-                </select>
+                    <!-- Filtre technologie -->
+                    <select id="filter_tec" name="technologie">
+
+                        <option value="">Toutes les technos</option>
+
+                        <% technologies.forEach((technologieOption)=> { %>
+
+                            <option value="<%= technologieOption.nom %>" <%=technologie===technologieOption.nom
+                                ? "selected" : "" %>
+                                >
+                                <%= technologieOption.nom %>
+                            </option>
+
+                            <% }) %>
+
+                    </select>
 
 
-                <!-- Tri par date -->
-                <button class="btn-date">
-                    Date ↓
-                </button>
+                    <!-- Filtre contrat -->
+                    <select id="filter_contrat" name="typeContrat">
+                        <option value="">Tous les contrats</option>
+
+                        <option value="Stage" <%=typeContrat==="Stage" ? "selected" : "" %>
+                            >
+                            Stage
+                        </option>
+
+                        <option value="Alternance" <%=typeContrat==="Alternance" ? "selected" : "" %>
+                            >
+                            Alternance
+                        </option>
+                    </select>
+
+
+                    <!-- Tri par date -->
+                    <button class="btn-date">
+                        Date ↓
+                    </button>
 
             </div>
+            </form>
 
             <!-- Liste des offres -->
             <div id="offres-container">
@@ -119,5 +148,21 @@
             </div>
 
         </div>
+        <script>
+            const filterPlace = document.querySelector("#filter_place");
+            const filterTec = document.querySelector("#filter_tec");
+            const filterContrat = document.querySelector("#filter_contrat");
 
+            filterPlace.addEventListener("change", () => {
+                filterPlace.form.submit();
+            });
+
+            filterTec.addEventListener("change", () => {
+                filterTec.form.submit();
+            });
+
+            filterContrat.addEventListener("change", () => {
+                filterContrat.form.submit();
+            });
+        </script>
         <%- include("../partials/footer") %>

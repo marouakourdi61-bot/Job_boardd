@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-async function getAllOffres(search = "") {
+async function getAllOffres(search = "", ville = "", typeContrat = "", technologie = "") {
 
     let sql = `
         SELECT
@@ -14,15 +14,17 @@ async function getAllOffres(search = "") {
     `;
 
     const params = [];
+    const conditions = [];
 
     if (search) {
-
-        sql += `
-            WHERE offre.titre LIKE ?
+        conditions.push(`
+        (
+            offre.titre LIKE ?
             OR entreprise.nom LIKE ?
             OR offre.description_courte LIKE ?
             OR offre.description_longue LIKE ?
-        `;
+        )
+    `);
 
         const keyword = `%${search}%`;
 
@@ -32,6 +34,35 @@ async function getAllOffres(search = "") {
             keyword,
             keyword
         );
+    }
+
+    if (ville) {
+        conditions.push("offre.ville = ?");
+        params.push(ville);
+    }
+
+    if (typeContrat) {
+        conditions.push("offre.type_contrat = ?");
+        params.push(typeContrat);
+    }
+
+    if (technologie) {
+    conditions.push(`
+        EXISTS (
+            SELECT 1
+            FROM offre_technologie
+            JOIN technologie
+                ON technologie.id = offre_technologie.technologie_id
+            WHERE offre_technologie.offre_id = offre.id
+            AND technologie.nom = ?
+        )
+    `);
+
+    params.push(technologie);
+}
+
+    if (conditions.length > 0) {
+        sql += " WHERE " + conditions.join(" AND ");
     }
 
     sql += `
@@ -58,6 +89,31 @@ async function getAllOffres(search = "") {
 
     return rows;
 }
+
+
+
+async function getAllVilles() {
+    const [rows] = await db.execute(`
+        SELECT DISTINCT ville
+        FROM offre
+        ORDER BY ville ASC
+    `);
+
+    return rows;
+}
+
+
+
+async function getAllTechnologies() {
+    const [rows] = await db.execute(`
+        SELECT id, nom
+        FROM technologie
+        ORDER BY nom ASC
+    `);
+
+    return rows;
+}
+
 
 async function getOffreById(id) {
     const [rows] = await db.execute(
@@ -97,7 +153,10 @@ async function getOffreById(id) {
     return offre;
 }
 
+
 module.exports = {
     getAllOffres,
-    getOffreById
+    getOffreById,
+    getAllVilles,
+    getAllTechnologies
 };
