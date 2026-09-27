@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-async function getAllOffres(search = "", ville = "", typeContrat = "", technologie = "") {
+async function getAllOffres(search = "", ville = "", typeContrat = "", technologie = "", sort = "desc") {
 
     let sql = `
         SELECT
@@ -47,7 +47,7 @@ async function getAllOffres(search = "", ville = "", typeContrat = "", technolog
     }
 
     if (technologie) {
-    conditions.push(`
+        conditions.push(`
         EXISTS (
             SELECT 1
             FROM offre_technologie
@@ -58,16 +58,18 @@ async function getAllOffres(search = "", ville = "", typeContrat = "", technolog
         )
     `);
 
-    params.push(technologie);
-}
+        params.push(technologie);
+    }
 
     if (conditions.length > 0) {
         sql += " WHERE " + conditions.join(" AND ");
     }
 
+    const order = sort === "asc" ? "ASC" : "DESC";
+
     sql += `
-        ORDER BY offre.date_publication DESC
-    `;
+    ORDER BY offre.date_publication ${order}
+`;
 
     const [rows] = await db.execute(sql, params);
 
