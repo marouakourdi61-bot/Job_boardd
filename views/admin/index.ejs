@@ -1,0 +1,98 @@
+<%- include("../partials/header", { title: "Administration" }) %>
+
+    <%- include("../partials/navbar") %>
+
+        <div class="container">
+
+            <div class="page-header">
+
+                <div>
+                    <h1 class="page-title">
+                        Administration
+                    </h1>
+
+                    <p class="subtitle">
+                        <%= offres.length %> offres publiées
+                    </p>
+                </div>
+
+                <a href="/admin/offres/create" class="btn-new">
+                    + Nouvelle offre
+                </a>
+
+            </div>
+
+
+            <!-- Tableau -->
+            <main class="table-card">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Entreprise</th>
+                            <th>Ville</th>
+                            <th>Contrat</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                        <% offres.forEach((offre)=> { %>
+
+                            <tr>
+
+                                <td class="row-title">
+                                    <%= offre.titre %>
+                                </td>
+
+                                <td>
+                                    <%= offre.entreprise_nom %>
+                                </td>
+
+                                <td>
+                                    <%= offre.ville %>
+                                </td>
+
+                                <td>
+
+                                    <span class="badge-stage">
+                                        <%= offre.type_contrat %>
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="action-links">
+
+                                        <a href="/admin/offres/<%= offre.id %>/edit" class="link-edit">
+                                            Modifier
+                                        </a>
+
+                                        <form action="/admin/offres/<%= offre.id %>/delete" method="POST">
+                                            <button type="submit" class="link-delete">
+                                                Supprimer
+                                            </button>
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            <% }) %>
+
+                    </tbody>
+
+                </table>
+
+            </main>
+
+        </div>
+
+        <%- include("../partials/footer") %>

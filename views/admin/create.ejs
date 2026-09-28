@@ -1,0 +1,249 @@
+<%- include("../partials/header", { title: "Nouvelle offre" }) %>
+
+<%- include("../partials/navbar") %>
+
+<div class="container">
+
+    <!-- Lien de retour -->
+    <a href="/admin/offres" class="back-link">
+        &larr; Retour
+    </a>
+
+    <!-- Titre -->
+    <h1 class="page-title">
+        Nouvelle offre
+    </h1>
+
+
+    <!-- Formulaire -->
+    <main class="form-card">
+
+        <form action="/admin/offres" method="POST">
+
+
+            <!-- Titre du poste -->
+            <div class="form-group">
+
+                <label for="titre">
+                    Titre du poste *
+                </label>
+
+                <input
+                    type="text"
+                    id="titre"
+                    name="titre"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Entreprise -->
+            <div class="form-group">
+
+                <label for="entreprise_id">
+                    Entreprise *
+                </label>
+
+                <select
+                    id="entreprise_id"
+                    name="entreprise_id"
+                    required
+                >
+
+                    <option value="">
+                        Choisir une entreprise
+                    </option>
+
+                    <% entreprises.forEach((entreprise) => { %>
+
+                        <option value="<%= entreprise.id %>">
+                            <%= entreprise.nom %>
+                        </option>
+
+                    <% }) %>
+
+                </select>
+
+            </div>
+
+
+            <!-- Ville -->
+            <div class="form-group">
+
+                <label for="ville">
+                    Ville *
+                </label>
+
+                <input
+                    type="text"
+                    id="ville"
+                    name="ville"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Type de contrat -->
+            <div class="form-group">
+
+                <label for="type_contrat">
+                    Type de contrat *
+                </label>
+
+                <select
+                    id="type_contrat"
+                    name="type_contrat"
+                    required
+                >
+
+                    <option value="Stage">
+                        Stage
+                    </option>
+
+                    <option value="Alternance">
+                        Alternance
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Technologies -->
+            <div class="form-group">
+
+                <label for="technologies">
+                    Technologies
+                </label>
+
+                <select
+                    id="technologies"
+                    name="technologies"
+                    multiple
+                >
+
+                    <% technologies.forEach((technologie) => { %>
+
+                        <option value="<%= technologie.id %>">
+                            <%= technologie.nom %>
+                        </option>
+
+                    <% }) %>
+
+                </select>
+
+                <small>
+                    Maintenez Ctrl pour sélectionner plusieurs technologies.
+                </small>
+
+            </div>
+
+
+            <!-- Description courte -->
+            <div class="form-group">
+
+                <label for="description_courte">
+                    Description courte
+                </label>
+
+                <textarea
+                    id="description_courte"
+                    name="description_courte"
+                ></textarea>
+
+            </div>
+
+
+            <!-- Description complète -->
+            <div class="form-group">
+
+                <label for="description_longue">
+                    Description complète de la mission *
+                </label>
+
+                <textarea
+                    id="description_longue"
+                    name="description_longue"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- Profil recherché -->
+            <div class="form-group">
+
+                <label for="profil_recherche">
+                    Profil recherché
+                </label>
+
+                <textarea
+                    id="profil_recherche"
+                    name="profil_recherche"
+                ></textarea>
+
+            </div>
+
+
+            <!-- Date de publication -->
+            <div class="form-group">
+
+                <label for="date_publication">
+                    Date de publication *
+                </label>
+
+                <input
+                    type="datetime-local"
+                    id="date_publication"
+                    name="date_publication"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Lien de candidature -->
+            <div class="form-group">
+
+                <label for="lien_candidature">
+                    Lien de candidature
+                </label>
+
+                <input
+                    type="url"
+                    id="lien_candidature"
+                    name="lien_candidature"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+
+            <!-- Boutons -->
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn-voir"
+                >
+                    Publier l'offre
+                </button>
+
+                <a
+                    href="/admin/offres"
+                    class="btn"
+                >
+                    Annuler
+                </a>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</div>
+
+<%- include("../partials/footer") %>

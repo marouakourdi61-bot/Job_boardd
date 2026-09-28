@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-async function getAllOffres(search = "", ville = "", typeContrat = "", technologie = "") {
+async function getAllOffres(search = "", ville = "", typeContrat = "", technologie = "", sort = "desc") {
 
     let sql = `
         SELECT
@@ -47,7 +47,7 @@ async function getAllOffres(search = "", ville = "", typeContrat = "", technolog
     }
 
     if (technologie) {
-    conditions.push(`
+        conditions.push(`
         EXISTS (
             SELECT 1
             FROM offre_technologie
@@ -58,16 +58,18 @@ async function getAllOffres(search = "", ville = "", typeContrat = "", technolog
         )
     `);
 
-    params.push(technologie);
-}
+        params.push(technologie);
+    }
 
     if (conditions.length > 0) {
         sql += " WHERE " + conditions.join(" AND ");
     }
 
+    const order = sort === "asc" ? "ASC" : "DESC";
+
     sql += `
-        ORDER BY offre.date_publication DESC
-    `;
+    ORDER BY offre.date_publication ${order}
+`;
 
     const [rows] = await db.execute(sql, params);
 
@@ -75,7 +77,7 @@ async function getAllOffres(search = "", ville = "", typeContrat = "", technolog
 
         const [technologies] = await db.execute(
             `
-            SELECT technologie.nom
+            SELECT technologie.id, technologie.nom
             FROM technologie
             JOIN offre_technologie
                 ON technologie.id = offre_technologie.technologie_id
@@ -153,10 +155,129 @@ async function getOffreById(id) {
     return offre;
 }
 
+async function getAllEntreprises() {
+    const [rows] = await db.execute(`
+        SELECT id, nom
+        FROM entreprise
+        ORDER BY nom ASC
+    `);
+
+    return rows;
+}
+
+async function createOffre(offre) {
+
+    const [result] = await db.execute(
+        `
+        INSERT INTO offre (
+            entreprise_id,
+            titre,
+            description_courte,
+            description_longue,
+            profil_recherche,
+            type_contrat,
+            ville,
+            date_publication,
+            lien_candidature
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `,
+        [
+            offre.entreprise_id,
+            offre.titre,
+            offre.description_courte,
+            offre.description_longue,
+            offre.profil_recherche,
+            offre.type_contrat,
+            offre.ville,
+            offre.date_publication,
+            offre.lien_candidature
+        ]
+    );
+
+    return result.insertId;
+}
+
+async function addTechnologies(offreId, technologies) {
+
+    for (const technologieId of technologies) {
+
+        await db.execute(
+            `
+            INSERT INTO offre_technologie (
+                offre_id,
+                technologie_id
+            )
+            VALUES (?, ?)
+            `,
+            [offreId, technologieId]
+        );
+    }
+}
+
+
+async function updateOffre(id, offre) {
+    await db.execute(
+        `
+        UPDATE offre
+        SET
+            entreprise_id = ?,
+            titre = ?,
+            description_courte = ?,
+            description_longue = ?,
+            profil_recherche = ?,
+            type_contrat = ?,
+            ville = ?,
+            date_publication = ?,
+            lien_candidature = ?
+        WHERE id = ?
+        `,
+        [
+            offre.entreprise_id,
+            offre.titre,
+            offre.description_courte,
+            offre.description_longue,
+            offre.profil_recherche,
+            offre.type_contrat,
+            offre.ville,
+            offre.date_publication,
+            offre.lien_candidature,
+            id
+        ]
+    );
+}
+
+
+async function deleteTechnologiesByOffre(offreId) {
+    await db.execute(
+        `
+        DELETE FROM offre_technologie
+        WHERE offre_id = ?
+        `,
+        [offreId]
+    );
+}
+
+async function deleteOffre(id) {
+    await db.execute(
+        `
+        DELETE FROM offre
+        WHERE id = ?
+        `,
+        [id]
+    );
+}
+
 
 module.exports = {
     getAllOffres,
     getOffreById,
     getAllVilles,
-    getAllTechnologies
+    getAllTechnologies,
+    getAllEntreprises,
+    createOffre,
+    addTechnologies,
+    updateOffre,
+    deleteTechnologiesByOffre,
+    deleteOffre
 };

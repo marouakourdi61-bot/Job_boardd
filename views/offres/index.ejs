@@ -13,9 +13,8 @@
 
 
             <!-- Recherche -->
+             <form action="/offres" method="GET">
             <div class="filters">
-
-                <form action="/offres" method="GET">
 
                     <input id="input_search" type="text" name="search" placeholder="Rechercher...">
 
@@ -73,12 +72,26 @@
 
 
                     <!-- Tri par date -->
-                    <button class="btn-date">
-                        Date ↓
-                    </button>
+                    <% if (sort==="desc" ) { %>
 
+                        <input type="hidden" name="sort" value="asc">
+
+                        <button type="submit" class="btn-date">
+                            Date ↑
+                        </button>
+
+                        <% } else { %>
+
+                            <input type="hidden" name="sort" value="desc">
+
+                            <button type="submit" class="btn-date">
+                                Date ↓
+                            </button>
+
+                            <% } %>
+                </form>
             </div>
-            </form>
+
 
             <!-- Liste des offres -->
             <div id="offres-container">
