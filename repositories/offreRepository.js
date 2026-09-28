@@ -77,7 +77,7 @@ async function getAllOffres(search = "", ville = "", typeContrat = "", technolog
 
         const [technologies] = await db.execute(
             `
-            SELECT technologie.nom
+            SELECT technologie.id, technologie.nom
             FROM technologie
             JOIN offre_technologie
                 ON technologie.id = offre_technologie.technologie_id
@@ -216,6 +216,59 @@ async function addTechnologies(offreId, technologies) {
 }
 
 
+async function updateOffre(id, offre) {
+    await db.execute(
+        `
+        UPDATE offre
+        SET
+            entreprise_id = ?,
+            titre = ?,
+            description_courte = ?,
+            description_longue = ?,
+            profil_recherche = ?,
+            type_contrat = ?,
+            ville = ?,
+            date_publication = ?,
+            lien_candidature = ?
+        WHERE id = ?
+        `,
+        [
+            offre.entreprise_id,
+            offre.titre,
+            offre.description_courte,
+            offre.description_longue,
+            offre.profil_recherche,
+            offre.type_contrat,
+            offre.ville,
+            offre.date_publication,
+            offre.lien_candidature,
+            id
+        ]
+    );
+}
+
+
+async function deleteTechnologiesByOffre(offreId) {
+    await db.execute(
+        `
+        DELETE FROM offre_technologie
+        WHERE offre_id = ?
+        `,
+        [offreId]
+    );
+}
+
+async function deleteOffre(id) {
+    await db.execute(
+        `
+        DELETE FROM offre
+        WHERE id = ?
+        `,
+        [id]
+    );
+}
+
+
 module.exports = {
     getAllOffres,
     getOffreById,
@@ -223,5 +276,8 @@ module.exports = {
     getAllTechnologies,
     getAllEntreprises,
     createOffre,
-    addTechnologies
+    addTechnologies,
+    updateOffre,
+    deleteTechnologiesByOffre,
+    deleteOffre
 };
