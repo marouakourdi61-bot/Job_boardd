@@ -11,7 +11,7 @@ async function init() {
         afficherOffres(offres);
 
         if (ordreDate === "ancien") {
-            ordreDate = "recent";
+            ordreDùate = "recent";
             boutonDate.textContent = "Date ↓";
         } else {
             ordreDate = "ancien";

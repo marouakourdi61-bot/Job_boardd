@@ -6,6 +6,8 @@ const offreRepository = require("./repositories/offreRepository");
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+
 const PORT = process.env.PORT || 3000;
 
 // EJS
@@ -75,6 +77,9 @@ app.get("/offres/:id", async (req, res) => {
         res.status(500).send("Erreur lors de la récupération de l'offre.");
     }
 });
+
+
+
 
 // console.log("server");
 

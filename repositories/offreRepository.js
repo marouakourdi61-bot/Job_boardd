@@ -155,10 +155,73 @@ async function getOffreById(id) {
     return offre;
 }
 
+async function getAllEntreprises() {
+    const [rows] = await db.execute(`
+        SELECT id, nom
+        FROM entreprise
+        ORDER BY nom ASC
+    `);
+
+    return rows;
+}
+
+async function createOffre(offre) {
+
+    const [result] = await db.execute(
+        `
+        INSERT INTO offre (
+            entreprise_id,
+            titre,
+            description_courte,
+            description_longue,
+            profil_recherche,
+            type_contrat,
+            ville,
+            date_publication,
+            lien_candidature
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `,
+        [
+            offre.entreprise_id,
+            offre.titre,
+            offre.description_courte,
+            offre.description_longue,
+            offre.profil_recherche,
+            offre.type_contrat,
+            offre.ville,
+            offre.date_publication,
+            offre.lien_candidature
+        ]
+    );
+
+    return result.insertId;
+}
+
+async function addTechnologies(offreId, technologies) {
+
+    for (const technologieId of technologies) {
+
+        await db.execute(
+            `
+            INSERT INTO offre_technologie (
+                offre_id,
+                technologie_id
+            )
+            VALUES (?, ?)
+            `,
+            [offreId, technologieId]
+        );
+    }
+}
+
 
 module.exports = {
     getAllOffres,
     getOffreById,
     getAllVilles,
-    getAllTechnologies
+    getAllTechnologies,
+    getAllEntreprises,
+    createOffre,
+    addTechnologies
 };
