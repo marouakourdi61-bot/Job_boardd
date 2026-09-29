@@ -57,6 +57,23 @@ app.get("/offres", async (req, res) => {
 
 
 
+app.get("/offres-suivies", async (req, res) => {
+    try {
+        const offres = await offreRepository.getAllOffres();
+
+        res.render("offres/suivies", {
+            offres: offres
+        });
+
+    } catch (error) {
+        console.error("Erreur :", error.message);
+
+        res.status(500).send(
+            "Erreur lors de la récupération des offres suivies."
+        );
+    }
+});
+
 
 
 //  detail

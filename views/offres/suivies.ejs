@@ -1,0 +1,87 @@
+<%- include("../partials/header", { title: "Offres suivies" }) %>
+
+<%- include("../partials/navbar") %>
+
+<div class="container">
+
+    <h1>Mes offres suivies</h1>
+
+    <p id="empty-message">
+        Aucune offre suivie.
+    </p>
+
+    <div id="followed-offers-container">
+
+        <% offres.forEach((offre) => { %>
+
+            <article
+                class="offer-card"
+                data-offre-id="<%= offre.id %>"
+            >
+
+                <div class="offer-header">
+
+                    <div>
+                        <span class="badge-stage">
+                            <%= offre.type_contrat %>
+                        </span>
+
+                        <span class="date">
+                            <%= offre.date_publication %>
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="follow-button"
+                        data-offre-id="<%= offre.id %>"
+                    >
+                        ★ Suivie
+                    </button>
+
+                </div>
+
+                <h2 class="offer-title">
+                    <%= offre.titre %>
+                </h2>
+
+                <p class="company-info">
+                    <%= offre.entreprise_nom %> -
+                    <%= offre.ville %>
+                </p>
+
+                <p class="description">
+                    <%= offre.description_courte %>
+                </p>
+
+                <div class="tags">
+
+                    <% offre.technologies.forEach((technologie) => { %>
+
+                        <span class="tag">
+                            <%= technologie.nom %>
+                        </span>
+
+                    <% }) %>
+
+                </div>
+
+                <a
+                    class="btn-voir"
+                    href="/offres/<%= offre.id %>"
+                >
+                    Voir
+                </a>
+
+            </article>
+
+        <% }) %>
+
+    </div>
+
+</div>
+
+<script src="/js/followed.js"></script>
+<script src="/js/suivies.js"></script>
+
+<%- include("../partials/footer") %>
