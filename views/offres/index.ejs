@@ -13,8 +13,8 @@
 
 
             <!-- Recherche -->
-             <form action="/offres" method="GET">
-            <div class="filters">
+            <form action="/offres" method="GET">
+                <div class="filters">
 
                     <input id="input_search" type="text" name="search" placeholder="Rechercher...">
 
@@ -89,78 +89,80 @@
                             </button>
 
                             <% } %>
-                </form>
-            </div>
+            </form>
+        </div>
 
 
-            <!-- Liste des offres -->
-            <div id="offres-container">
+        <!-- Liste des offres -->
+        <div id="offres-container">
 
-                <% offres.forEach((offre)=> { %>
+            <% offres.forEach((offre)=> { %>
 
-                    <article class="offer-card">
+                <article class="offer-card">
 
-                        <div class="offer-header">
+                    <div class="offer-header">
 
-                            <div>
+                        <div>
 
-                                <span class="badge-stage">
-                                    <%= offre.type_contrat %>
-                                </span>
+                            <span class="badge-stage">
+                                <%= offre.type_contrat %>
+                            </span>
 
-                                <span class="date">
-                                    <%= offre.date_publication %>
-                                </span>
-
-                            </div>
-
-                            <span class="star">
-                                ☆
+                            <span class="date">
+                                <%= offre.date_publication %>
                             </span>
 
                         </div>
+                        <button type="button" class="follow-button" data-offre-id="<%= offre.id %>">
+                            ☆ Suivre
+                        </button>
+
+                    </div>
 
 
-                        <h2 class="offer-title">
-                            <%= offre.titre %>
-                        </h2>
+                    <h2 class="offer-title">
+                        <%= offre.titre %>
+                    </h2>
 
 
-                        <p class="company-info">
-                            <%= offre.entreprise_nom %> -
-                                <%= offre.ville %>
-                        </p>
+                    <p class="company-info">
+                        <%= offre.entreprise_nom %> -
+                            <%= offre.ville %>
+                    </p>
 
 
-                        <p class="description">
-                            <%= offre.description_courte %>
-                        </p>
+                    <p class="description">
+                        <%= offre.description_courte %>
+                    </p>
 
 
-                        <div class="tags">
+                    <div class="tags">
 
-                            <% offre.technologies.forEach((technologie)=> { %>
+                        <% offre.technologies.forEach((technologie)=> { %>
 
-                                <span class="tag">
-                                    <%= technologie.nom %>
-                                </span>
+                            <span class="tag">
+                                <%= technologie.nom %>
+                            </span>
 
-                                <% }) %>
+                            <% }) %>
 
-                        </div>
+                    </div>
 
 
-                        <a class="btn-voir" href="/offres/<%= offre.id %>">
-                            Voir
-                        </a>
+                    <a class="btn-voir" href="/offres/<%= offre.id %>">
+                        Voir
+                    </a>
 
-                    </article>
+                </article>
 
-                    <% }) %>
-
-            </div>
+                <% }) %>
 
         </div>
+
+        </div>
+
+        
+
         <script>
             const filterPlace = document.querySelector("#filter_place");
             const filterTec = document.querySelector("#filter_tec");
@@ -178,4 +180,7 @@
                 filterContrat.form.submit();
             });
         </script>
+
+        <script src="/js/followed.js"></script>
+        
         <%- include("../partials/footer") %>
