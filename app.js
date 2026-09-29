@@ -7,6 +7,7 @@ const offreRepository = require("./repositories/offreRepository");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 const PORT = process.env.PORT || 3000;
 
@@ -55,6 +56,23 @@ app.get("/offres", async (req, res) => {
 });
 
 
+
+app.get("/offres-suivies", async (req, res) => {
+    try {
+        const offres = await offreRepository.getAllOffres();
+
+        res.render("offres/suivies", {
+            offres: offres
+        });
+
+    } catch (error) {
+        console.error("Erreur :", error.message);
+
+        res.status(500).send(
+            "Erreur lors de la récupération des offres suivies."
+        );
+    }
+});
 
 
 
