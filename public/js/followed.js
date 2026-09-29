@@ -23,25 +23,50 @@ function addFollowedOffer(id) {
 }
 
 
+function removeFollowedOffer(id) {
+    const followed = getFollowedOffers();
+
+    const updatedFollowed = followed.filter(
+        (offerId) => offerId !== id
+    );
+
+    localStorage.setItem(
+        "followedOffers",
+        JSON.stringify(updatedFollowed)
+    );
+}
+
+
 const followButtons = document.querySelectorAll(".follow-button");
 
 followButtons.forEach((button) => {
 
-    const offreId = Number(
-        button.dataset.offreId
-    );
+    const offreId = Number(button.dataset.offreId);
 
     const followed = getFollowedOffers();
 
     if (followed.includes(offreId)) {
         button.textContent = "★ Suivie";
+    } else {
+        button.textContent = "☆ Suivre";
     }
 
     button.addEventListener("click", () => {
 
-        addFollowedOffer(offreId);
+        const followed = getFollowedOffers();
 
-        button.textContent = "★ Suivie";
+        if (followed.includes(offreId)) {
+
+            removeFollowedOffer(offreId);
+
+            button.textContent = "☆ Suivre";
+
+        } else {
+
+            addFollowedOffer(offreId);
+
+            button.textContent = "★ Suivie";
+        }
     });
 
 });
